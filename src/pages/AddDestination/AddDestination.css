@@ -1,0 +1,248 @@
+.add-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.add-container-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+.form-column,
+.preview-column {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-card,
+.preview-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+}
+
+.preview-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.form-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.input-group select {
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group select:focus {
+  border-color: var(--color-primary);
+}
+
+.input-group select:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.btn-primary {
+  flex: 1 1 150px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  flex: 1 1 100px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  background-color: #ffffff;
+  color: var(--text-main);
+  border: 1px solid #cbd5e1;
+}
+
+.btn-secondary:hover {
+  background-color: #f8fafc;
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.preview-placeholder {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.pin-icon {
+  width: 48px;
+  height: 48px;
+  color: #94a3b8;
+}
+
+.preview-active-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  flex: 1;
+  background-color: #ffffff;
+}
+
+.flag-wrapper {
+  height: 200px;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.preview-flag {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.card-info {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.card-info h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.card-info p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.card-info .region-text {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.badge-not-visited {
+  display: inline-block;
+  background-color: #fef9c3;
+  color: #854d0e;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+@media (min-width: 768px) {
+  .add-container {
+    flex-direction: row;
+    align-items: stretch;
+    padding: 4rem 2rem;
+  }
+
+  .form-column,
+  .preview-column {
+    flex: 1;
+  }
+
+  .form-card,
+  .preview-card {
+    padding: 2.5rem;
+    height: 100%;
+  }
+}
