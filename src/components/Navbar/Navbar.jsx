@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import { NavLink } from "react-router"
+import { NavLink } from "react-router";
 import { Globe } from "lucide-react";
 import "./Navbar.css";
 
@@ -15,11 +15,11 @@ export default function Navbar() {
         <NavLink to="/" end className="menu-item">
           Início
         </NavLink>
-        
+
         <NavLink to="/adicionar" className="menu-item">
           Adicionar
         </NavLink>
-        
+
         <NavLink to="/lista" className="menu-item">
           Minha Lista
         </NavLink>

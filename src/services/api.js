@@ -23,13 +23,12 @@ export async function criar(pais) {
     }
 }
 
-export async function obter(id=null) {
-    try {
-        return (await fetch(`${BASE_URL}/${id ?? ""}`)).json();
-    }
-    catch (err) {
-        return { message: err.message ?? "ID não existe" };
-    }
+export async function obter(id = null) {
+  try {
+    return (await fetch(`${BASE_URL}/${id ?? ""}`)).json();
+  } catch (err) {
+    return { message: err.message ?? "ID não existe" };
+  }
 }
 
 export async function atualizar(id, pais={}) {
