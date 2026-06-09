@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:3000/paises";
 
 export async function criar(produto) {
     const opts = {
@@ -7,7 +7,7 @@ export async function criar(produto) {
     };
 
     try {
-        const resp = await fetch(`${BASE_URL}/`, opts);
+        const resp = await fetch(`${BASE_URL}`, opts);
 
         return resp.json();
     }
