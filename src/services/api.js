@@ -7,12 +7,12 @@ export async function criar(pais) {
     };
 
     try {
-        const all = await obter();
+        const paises = await obter();
 
-        if (all.message !== undefined) return all;
+        if (paises.message !== undefined) return paises;
 
-        if (all.filter(reg => reg.name === pais.name).length !== 0)
-            throw new Error();
+        if (paises.some(reg => reg.name === pais.name))
+            return { message: "País já registrado" };
 
         const resp = await fetch(`${BASE_URL}`, opts);
 
