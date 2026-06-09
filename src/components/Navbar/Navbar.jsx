@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router"
 import { Globe } from "lucide-react";
 import "./Navbar.css";
 
