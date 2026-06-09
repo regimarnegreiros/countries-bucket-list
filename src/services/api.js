@@ -1,18 +1,25 @@
 const BASE_URL = "http://localhost:3000/paises";
 
-export async function criar(produto) {
+export async function criar(pais) {
     const opts = {
         method: "POST",
-        body: JSON.stringify(produto),
+        body: JSON.stringify(pais),
     };
 
     try {
+        const all = await obter();
+
+        if (all.message !== undefined) return all;
+
+        if (all.filter(reg => reg.name === pais.name).length !== 0)
+            throw new Error();
+
         const resp = await fetch(`${BASE_URL}`, opts);
 
         return resp.json();
     }
     catch (err) {
-        return { message: err.message ?? "ID já existe" };
+        return { message: err.message ?? "País já registrado" };
     }
 }
 
@@ -25,10 +32,10 @@ export async function obter(id=null) {
     }
 }
 
-export async function atualizar(id, produto={}) {
+export async function atualizar(id, pais={}) {
     const opts = {
         method: "PATCH",
-        body: JSON.stringify(produto),
+        body: JSON.stringify(pais),
     };
 
     try {
@@ -42,7 +49,7 @@ export async function atualizar(id, produto={}) {
 export async function deletar(id) {
     const opts = {
         method: "DELETE",
-        body: JSON.stringify(produto),
+        body: JSON.stringify(pais),
     };
 
     try {
