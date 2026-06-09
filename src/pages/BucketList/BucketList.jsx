@@ -1,17 +1,7 @@
-import { useState, /* useEffect */ } from "react";
+import { useState, useEffect } from "react";
 import Card from "../../components/Card/Card";
 import "./BucketList.css";
-
-/* async function getCountries() {
-  try {
-    const res = await fetch("http://localhost:3000/countries");
-
-    return await res.json();
-  }
-  catch {
-    return [];
-  }
-} */
+import { obter, atualizar, deletar } from "../../services/api";
 
 export default function BucketList() {
   const [countries, setCountries] = useState([]);
@@ -19,35 +9,60 @@ export default function BucketList() {
   const [regionFilter, setRegionFilter] = useState("");
   const [visitFilter, setVisitFilter] = useState("");
 
-  /* useEffect(() => {
-    getCountries().then(setCountries);
-  }, []); */
+  useEffect(() => {
+    async function carregarLista() {
+      try {
+        const dados = await obter();
+        setCountries(dados);
+      } catch (err) {
+        console.error("Erro ao carregar lista", err);
+      }
+    }
+    carregarLista();
+  }, []);
 
-  function removeCountry(index) {
-    setCountries((prev) => prev.filter((_, i) => i !== index));
+  async function removeCountry(id) {
+    if (!window.confirm("Tem certeza que deseja remover?")) return;
+
+    try {
+      await deletar(id);
+      setCountries((prev) => prev.filter((c) => c.id !== id));
+    } catch (err) {
+      console.error("Erro ao deletar", err);
+    }
   }
 
-  function toggleVisited(index) {
-    setCountries((prev) =>
-      prev.map((c, i) => (i === index ? { ...c, visited: !c.visited } : c))
-    );
+  async function toggleVisited(id, currentStateVisited) {
+    try {
+      await atualizar(id, { visited: !currentStateVisited });
+      setCountries((prev) =>
+        prev.map((c) => (c.id === id ? { ...c, visited: !c.visited } : c)),
+      );
+    } catch (err) {
+      console.error("Erro ao atualizar", err);
+    }
   }
 
   const visited = countries.filter((c) => c.visited);
   const percent = Math.round((visited.length / countries.length) * 100) || 0;
 
-  const regions = [...new Set(countries.flatMap((c) => c.continents ?? []))].sort();
+  const regions = [
+    ...new Set(countries.map((c) => c.region).filter(Boolean)),
+  ].sort();
 
   const filtered = countries.filter((c) => {
     const q = search.toLowerCase();
+
     const matchSearch =
       !q ||
-      c.name.common.toLowerCase().includes(q) ||
-      (c.capital ?? []).some((cap) => cap.toLowerCase().includes(q));
-    const matchRegion = !regionFilter || (c.continents ?? []).includes(regionFilter);
+      (c.name && c.name.toLowerCase().includes(q)) ||
+      (c.capital && c.capital.toLowerCase().includes(q));
+
+    const matchRegion = !regionFilter || c.region === regionFilter;
+
     const matchVisit =
-      !visitFilter ||
-      (visitFilter === "visited" ? c.visited : !c.visited);
+      !visitFilter || (visitFilter === "visited" ? c.visited : !c.visited);
+
     return matchSearch && matchRegion && matchVisit;
   });
 
@@ -71,13 +86,21 @@ export default function BucketList() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select value={regionFilter} onChange={(e) => setRegionFilter(e.target.value)}>
+        <select
+          value={regionFilter}
+          onChange={(e) => setRegionFilter(e.target.value)}
+        >
           <option value="">Todas as regiões</option>
           {regions.map((r) => (
-            <option key={r} value={r}>{r}</option>
+            <option key={r} value={r}>
+              {r}
+            </option>
           ))}
         </select>
-        <select value={visitFilter} onChange={(e) => setVisitFilter(e.target.value)}>
+        <select
+          value={visitFilter}
+          onChange={(e) => setVisitFilter(e.target.value)}
+        >
           <option value="">Todos os destinos</option>
           <option value="visited">Visitados</option>
           <option value="notVisited">Não visitados</option>
@@ -88,11 +111,11 @@ export default function BucketList() {
       <section className="cards-grid">
         {filtered.map((country) => (
           <Card
-            key={country.name.common}
+            key={country.id}
             cardData={country}
             visited={country.visited ?? false}
-            onToggle={() => toggleVisited(countries.indexOf(country))}
-            onDelete={() => removeCountry(countries.indexOf(country))}
+            onToggle={() => toggleVisited(country.id, country.visited)}
+            onDelete={() => removeCountry(country.id)}
           />
         ))}
       </section>
