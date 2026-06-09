@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router"
 import { Globe, Map, Plus } from "lucide-react";
 import "./Home.css";
 
