@@ -1,8 +1,11 @@
-// src/components/Navbar.jsx
 import { NavLink } from "react-router";
 import { Globe } from "lucide-react";
 import "./Navbar.css";
 
+/**
+ * @description Barra de navegação global
+ * @returns {JSX.Element}
+ */
 export default function Navbar() {
   return (
     <header className="navbar-header">

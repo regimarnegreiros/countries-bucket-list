@@ -2,6 +2,10 @@ import { Link } from "react-router";
 import { Globe, Map, Plus } from "lucide-react";
 import "./Home.css";
 
+/**
+ * @description Página principal da aplicação
+ * @returns {JSX.Element}
+ */
 export default function Home() {
   return (
     <main className="home-container">

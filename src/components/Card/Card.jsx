@@ -1,7 +1,21 @@
 import { X } from "lucide-react";
 import "./Card.css";
 
+/**
+ * @typedef CardParams
+ * @property {{ capital?: string, region?: string, name?: string, flagUrl?: string }} cardData
+ * @property {() => void} onToggle
+ * @property {() => void} onDelete
+ * @property {boolean} visited
+ */
+
+/**
+ * @description Cartão com dados de cada país cadastrado
+ * @param {CardParams}
+ * @returns {JSX.Element}
+ */
 export default function Card({ cardData, onToggle, onDelete, visited }) {
+  // Dados corrigidos caso estejam faltando
   const data = {
     flag: cardData.flagUrl || "",
 
@@ -21,7 +35,7 @@ export default function Card({ cardData, onToggle, onDelete, visited }) {
         className={visited ? "isVisited" : undefined}
         alt={data.alt}
       />
-      <div className="infos">
+      <section className="infos">
         <h3>{data.name}</h3>
         <p className="capital">{data.capitals}</p>
         <p className="continent">{data.continents}</p>
@@ -39,7 +53,7 @@ export default function Card({ cardData, onToggle, onDelete, visited }) {
             <X />
           </button>
         </div>
-      </div>
+      </section>
     </article>
   );
 }
