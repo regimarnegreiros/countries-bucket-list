@@ -1,0 +1,116 @@
+article {
+  border-radius: 1em;
+  overflow: hidden;
+  background-color: white;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  box-shadow: 0 4px 12px gray;
+  transition: box-shadow 0.3s ease-in-out;
+  width: 100%;
+  min-height: 400px;
+}
+
+article:hover {
+  box-shadow: 4px 8px 16px gray;
+}
+
+img {
+  transition: filter 0.5s ease-in-out;
+  height: 160px;
+  width: 100%;
+  object-fit: cover;
+}
+
+img.isVisited {
+  filter: grayscale(100%) brightness(25%);
+}
+
+.infos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  gap: 0.75rem;
+}
+
+button {
+  border-style: hidden;
+  border-radius: 0.75rem;
+  cursor: default;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button.confirm {
+  flex: 1;
+  background-color: oklch(62.7% 0.194 149.214);
+  color: white;
+  padding: 0.8rem;
+  margin-right: 1em;
+}
+
+button.confirm:hover {
+  background-color: oklch(52.7% 0.154 150.069);
+}
+
+button.delete {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: oklch(57.7% 0.245 27.325);
+  color: white;
+  font-weight: bold;
+}
+
+button.delete:hover {
+  background-color: oklch(50.5% 0.213 27.518);
+}
+
+button.isVisited {
+  background-color: oklch(96.7% 0.003 264.542);
+  color: oklch(37.3% 0.034 259.733);
+}
+button.isVisited:hover {
+  background-color: oklch(92.8% 0.006 264.531);
+  color: oklch(37.3% 0.034 259.733);
+}
+
+p.continent {
+  margin: 0.5em 0 0.5em 0;
+  font-size: small;
+}
+
+p.capital {
+  margin-top: 0.5em;
+  font-size: smaller;
+}
+
+span.visitedStatus {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+}
+span.visited {
+  background-color: lightgreen;
+  color: darkolivegreen;
+}
+span.notVisited {
+  background-color: lightsalmon;
+  color: maroon;
+}
+
+@media (hover: none) {
+  article:hover {
+    box-shadow: 0 4px 12px gray;
+  }
+}
