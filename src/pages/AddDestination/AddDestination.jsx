@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Save, MapPin } from "lucide-react";
 import "./AddDestination.css";
+import { criar } from "../../services/api";
 
 export default function AddDestination() {
   const [countries, setCountries] = useState([]);
@@ -8,6 +9,7 @@ export default function AddDestination() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedCountryName, setSelectedCountryName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all?fields=name,capital,region,flags")
@@ -41,12 +43,31 @@ export default function AddDestination() {
     setSelectedCountryName("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedRegion || !selectedCountryName) return;
 
-    alert(`Destino adicionado: ${selectedCountryName}!`);
-    handleClear();
+    try {
+      setSaving(true);
+
+      const newDestination = {
+        name: selectedCountryName,
+        region: selectedRegion,
+        capital: selectedCountryDetails?.capital?.[0] || "Não informada",
+        flagUrl: selectedCountryDetails?.flags?.png,
+        visited: false,
+      };
+
+      await criar(newDestination);
+
+      alert(`Destino adicionado: ${selectedCountryName}!`);
+      handleClear();
+    } catch (erro) {
+      alert("Erro ao tentar adicionar o destino!");
+      console.error(erro);
+    } finally {
+      setSaving(false);
+    }
   };
 
   if (loading) {
@@ -113,10 +134,10 @@ export default function AddDestination() {
               <button
                 type="submit"
                 className="btn-primary"
-                disabled={!selectedCountryName}
+                disabled={!selectedCountryName || saving}
               >
                 <Save className="btn-icon" />
-                Adicionar
+                {saving ? "Salvando..." : "Adicionar"}
               </button>
               <button
                 type="button"
