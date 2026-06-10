@@ -16,15 +16,13 @@
   color: var(--text-muted);
 }
 
-.form-column,
-.preview-column {
+.form-column {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.form-card,
-.preview-card {
+.form-card {
   background-color: #ffffff;
   border-radius: 16px;
   box-shadow: var(--card-shadow);
@@ -32,14 +30,6 @@
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem;
-}
-
-.preview-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 1.5rem;
-  text-align: left;
 }
 
 .form-card h2 {
@@ -146,20 +136,6 @@
   height: 18px;
 }
 
-.preview-placeholder {
-  border: 2px dashed #cbd5e1;
-  border-radius: 12px;
-  padding: 4rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 1rem;
-  color: var(--text-muted);
-  flex: 1;
-}
-
 .pin-icon {
   width: 48px;
   height: 48px;
@@ -185,15 +161,6 @@
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #e2e8f0;
-}
-
-.preview-flag {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
 }
 
 .card-info {
@@ -235,13 +202,11 @@
     padding: 4rem 2rem;
   }
 
-  .form-column,
-  .preview-column {
+  .form-column {
     flex: 1;
   }
 
-  .form-card,
-  .preview-card {
+  .form-card {
     padding: 2.5rem;
     height: 100%;
   }

@@ -32,21 +32,19 @@ A aplicação permite:
 
 ### 🌎 Mapeamento Global Interativo
 
-Visualização gráfica ou em formato de lista detalhada de todos os países do mundo.
+Visualização em formato de lista detalhada de todos os países do mundo.
 
 ### 📍 Gerenciamento de Status
 
 Classificação dos países em:
 
 - ✅ Visitados
-- ⭐ Quero Visitar (Bucket List)
-- ⬜ Não Visitados
+- ⬜ Não Visitados (Quero visitar)
 
 ### 📊 Painel de Estatísticas
 
 - Percentual do mundo explorado
 - Detalhamento por continente
-- Gráficos e indicadores visuais
 
 ### 🔎 Filtros e Busca Avançada
 
@@ -54,8 +52,6 @@ Filtragem instantânea por:
 
 - Nome do país
 - Região
-- Idioma
-- Moeda
 - Status de visitação
 
 ### 🌐 Integração com APIs
@@ -71,32 +67,21 @@ O projeto segue boas práticas modernas de desenvolvimento.
 ### Front-end
 
 - React.js
-- Next.js
-- TypeScript
 - HTML5
 - CSS3
 
-### Estilização
-
-- Tailwind CSS
-- Styled Components
-- Dark Mode
-
 ### Gerenciamento de Estado
 
-- Context API
-- Redux Toolkit
+- `useState`
 
 ### Consumo de API
 
-- Axios
 - Fetch API
 
 ### Qualidade de Código
 
 - ESLint
 - Prettier
-- Husky
 
 ---
 
@@ -104,22 +89,21 @@ O projeto segue boas práticas modernas de desenvolvimento.
 
 ```text
 .
-├── .github/             # Workflows do GitHub Actions e modelos de PR
 ├── public/              # Arquivos estáticos
 ├── src/
-│   ├── assets/          # Mídias e estilos globais
 │   ├── components/      # Componentes reutilizáveis
-│   ├── hooks/           # Custom Hooks
 │   ├── pages/           # Páginas da aplicação
+│   ├── routes/          # Rotas das páginas da aplicação
 │   ├── services/        # Serviços e chamadas de API
-│   ├── store/           # Estado global
-│   ├── types/           # Interfaces e tipos TypeScript
-│   └── utils/           # Funções utilitárias
-├── .env.example
+│   └── styles/          # CSS global
 ├── .gitignore
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── package-lock.json
 ├── package.json
 ├── README.md
-└── tsconfig.json
+└── viteconfig.json
 ```
 
 ---
@@ -160,17 +144,7 @@ Ou com Yarn:
 yarn install
 ```
 
-### 4. Configurar Variáveis de Ambiente
-
-Copie o arquivo `.env.example`:
-
-```bash
-cp .env.example .env.local
-```
-
-Preencha as variáveis necessárias.
-
-### 5. Iniciar o Projeto
+### 4. Iniciar o Projeto
 
 Com npm:
 
@@ -187,7 +161,7 @@ yarn dev
 Acesse:
 
 ```text
-http://localhost:3000
+http://localhost:5173
 ```
 
 ---

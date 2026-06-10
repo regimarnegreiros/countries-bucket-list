@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
-import { Save, MapPin } from "lucide-react";
+import { Save } from "lucide-react";
 import "./AddDestination.css";
 import { criar } from "../../services/api";
+import PreviewCard from "../../components/PreviewCard/PreviewCard";
 
+/**
+ * @description Página de cadastro de país de destino
+ * @returns {JSX.Element}
+ */
 export default function AddDestination() {
   const [countries, setCountries] = useState([]);
   const [regions, setRegions] = useState([]);
@@ -12,6 +17,7 @@ export default function AddDestination() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    // obtém algumas informações de países 
     fetch("https://restcountries.com/v3.1/all?fields=name,capital,region,flags")
       .then((res) => res.json())
       .then((data) => {
@@ -22,20 +28,21 @@ export default function AddDestination() {
 
         const uniqueRegions = [...new Set(data.map((c) => c.region))].sort();
         setRegions(uniqueRegions);
-        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, []);
 
   const filteredCountries = countries.filter(
-    (c) => c.region === selectedRegion,
+    (country) => country.region === selectedRegion
   );
 
   const selectedCountryDetails = selectedCountryName
-    ? filteredCountries.find((c) => c.name.common === selectedCountryName)
+    ? filteredCountries.find((country) => country.name.common === selectedCountryName)
     : null;
 
   const handleClear = () => {
@@ -43,8 +50,8 @@ export default function AddDestination() {
     setSelectedCountryName("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     if (!selectedRegion || !selectedCountryName) return;
 
     try {
@@ -54,7 +61,7 @@ export default function AddDestination() {
         name: selectedCountryName,
         region: selectedRegion,
         capital: selectedCountryDetails?.capital?.[0] || "Não informada",
-        flagUrl: selectedCountryDetails?.flags?.png,
+        flagUrl: selectedCountryDetails?.flags?.svg ?? selectedCountryDetails?.flags?.png,
         visited: false,
       };
 
@@ -93,8 +100,8 @@ export default function AddDestination() {
               <select
                 id="region"
                 value={selectedRegion}
-                onChange={(e) => {
-                  setSelectedRegion(e.target.value);
+                onChange={(event) => {
+                  setSelectedRegion(event.target.value);
                   setSelectedCountryName("");
                 }}
                 required
@@ -113,7 +120,7 @@ export default function AddDestination() {
               <select
                 id="country"
                 value={selectedCountryName}
-                onChange={(e) => setSelectedCountryName(e.target.value)}
+                onChange={(event) => setSelectedCountryName(event.target.value)}
                 disabled={!selectedRegion}
                 required
               >
@@ -151,37 +158,7 @@ export default function AddDestination() {
         </article>
       </section>
 
-      <section className="preview-column">
-        <article className="preview-card">
-          <h3>Preview do Card</h3>
-
-          {selectedCountryDetails ? (
-            <article className="preview-active-content">
-              <figure className="flag-wrapper">
-                <img
-                  src={selectedCountryDetails.flags.png}
-                  alt={selectedCountryDetails.name.common}
-                  className="preview-flag"
-                />
-              </figure>
-              <section className="card-info">
-                <h4>{selectedCountryDetails.name.common}</h4>
-                <p>
-                  Capital:{" "}
-                  {selectedCountryDetails.capital?.[0] || "Não informada"}
-                </p>
-                <p className="region-text">{selectedRegion}</p>
-                <span className="badge-not-visited">Não visitado</span>
-              </section>
-            </article>
-          ) : (
-            <aside className="preview-placeholder">
-              <MapPin className="pin-icon" />
-              <p>Selecione uma região e um país para ver o preview</p>
-            </aside>
-          )}
-        </article>
-      </section>
+      <PreviewCard country={selectedCountryDetails} />
     </main>
   );
 }

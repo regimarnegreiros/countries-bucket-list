@@ -3,6 +3,10 @@ import Card from "../../components/Card/Card";
 import "./BucketList.css";
 import { obter, atualizar, deletar } from "../../services/api";
 
+/**
+ * @description Página de listagem de países
+ * @returns {JSX.Element}
+ */
 export default function BucketList() {
   const [countries, setCountries] = useState([]);
   const [search, setSearch] = useState("");
@@ -35,33 +39,33 @@ export default function BucketList() {
   async function toggleVisited(id, currentStateVisited) {
     try {
       await atualizar(id, { visited: !currentStateVisited });
-      setCountries((prev) =>
-        prev.map((c) => (c.id === id ? { ...c, visited: !c.visited } : c)),
-      );
+      setCountries((prev) => prev.map((country) => (
+        country.id === id ? { ...country, visited: !country.visited } : country
+      )));
     } catch (err) {
       console.error("Erro ao atualizar", err);
     }
   }
 
-  const visited = countries.filter((c) => c.visited);
+  const visited = countries.filter((country) => country.visited);
   const percent = Math.round((visited.length / countries.length) * 100) || 0;
 
   const regions = [
-    ...new Set(countries.map((c) => c.region).filter(Boolean)),
+    ...new Set(countries.map((country) => country.region).filter(Boolean)),
   ].sort();
 
-  const filtered = countries.filter((c) => {
-    const q = search.toLowerCase();
+  const filtered = countries.filter((country) => {
+    const query = search.toLowerCase();
 
     const matchSearch =
-      !q ||
-      (c.name && c.name.toLowerCase().includes(q)) ||
-      (c.capital && c.capital.toLowerCase().includes(q));
+      !query ||
+      (country.name && country.name.toLowerCase().includes(query)) ||
+      (country.capital && country.capital.toLowerCase().includes(query));
 
-    const matchRegion = !regionFilter || c.region === regionFilter;
+    const matchRegion = !regionFilter || country.region === regionFilter;
 
     const matchVisit =
-      !visitFilter || (visitFilter === "visited" ? c.visited : !c.visited);
+      !visitFilter || (visitFilter === "visited" ? country.visited : !country.visited);
 
     return matchSearch && matchRegion && matchVisit;
   });
